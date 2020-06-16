@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-4">
+    <% @pokemons.each do |mon| %>
+      <div class="col m-4">
+        <div class="card bg-light" style="min-width: 284px; max-width: 284">
+          <img src="<%= mon[:url] %>" class="card-img-top " alt="pokemon image" style="width: 282px; height: 282px; object-fit: cover; ">
+          <div class="card-body">
+            <h5 class="card-title"><%= mon[:name] %></h5>
+            <p class="card-text"><%= "level : #{mon[:level]}" %></p>
+            <p class="card-text"><%= "type 1 : #{mon[:type1]}" %></p>
+            <p class="card-text"><%= "type 2 : #{mon[:type2]}" %></p>
+          </div>
+        </div>    
+      </div>
+    <% end %>
+  </div>
+</div>

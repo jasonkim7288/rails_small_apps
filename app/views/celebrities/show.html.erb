@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-4">
+      <div class="col m-4">
+        <div class="card bg-light" style="min-width: 284px; max-width: 284">
+          <% if @celebrity %>
+            <img src="<%= @celebrity[:url] %>" class="card-img-top " alt="celebrity image" style="width: 282px; height: 282px; object-fit: cover; ">
+            <div class="card-body">
+              <h5 class="card-title"><%= @celebrity[:name] %></h5>
+              <p class="card-text"><%= @celebrity[:notability] %></p>
+              <%= link_to 'Remove', celeb_path(@celebrity[:id]), method: "delete", data: { confirm: "Really??" }, local: "true", class: "text-danger" %>
+            </div>
+          <% else %>
+            <h2 class="text-center">No result</h2>
+          <% end %>
+        </div>    
+      </div>
+  </div>
+</div>
