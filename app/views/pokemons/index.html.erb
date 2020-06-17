@@ -7,8 +7,11 @@
           <div class="card-body">
             <h5 class="card-title"><%= pokemon[:name] %></h5>
             <p class="card-text"><%= "level : #{pokemon[:level]}" %></p>
-            <p class="card-text"><%= "type 1 : #{pokemon[:type1]}" %></p>
-            <p class="card-text"><%= "type 2 : #{pokemon[:type2]}" %></p>
+            <%# match the color %>
+            <p class="card-text" style="color:<%= pokemon[:color_type1] %>;"><%= "type 1 : #{pokemon[:type1]}" %></p>
+            <% if pokemon[:type2] %>
+              <p class="card-text" style="color:<%= pokemon[:color_type2] %>;"><%= "type 2 : #{pokemon[:type2]}" %></p>
+            <% end %>
           </div>
         </div>    
       </div>

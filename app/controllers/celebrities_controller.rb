@@ -26,8 +26,12 @@ class CelebritiesController < ApplicationController
     # parse json
     json_results = JSON.parse(response.body, {symbolize_names: true})
 
-    if !notability && json_results[:searchInformation][:totalResults].to_i > 0
+    if params[:notability]
+      notability = params[:notability]
+    elsif json_results[:searchInformation][:totalResults].to_i > 0
       notability = json_results[:items][0][:snippet]
+    else
+      notability = "Known"
     end
     
 
