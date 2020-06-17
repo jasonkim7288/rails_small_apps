@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-4">
+    <% if @pokemon && @pokemon != {} %>
+      <div class="col m-4">
+        <div class="card bg-light" style="min-width: 284px; max-width: 284">
+          <img src="<%= @pokemon[:img] %>" class="card-img-top " alt="pokemon image" style="width: 282px; height: 282px; object-fit: cover; ">
+          <div class="card-body">
+            <h5 class="card-title"><%= @pokemon[:name] %></h5>
+            <p class="card-text"><%= "level : #{@pokemon[:level]}" %></p>
+            <p class="card-text"><%= "type 1 : #{@pokemon[:type1]}" %></p>
+            <p class="card-text"><%= "type 2 : #{@pokemon[:type2]}" %></p>
+          </div>
+        </div>    
+      </div>
+    <% end %>
+  </div>
+</div>

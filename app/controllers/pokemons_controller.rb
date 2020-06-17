@@ -2,59 +2,58 @@ class PokemonsController < ApplicationController
   before_action :prepare_data
 
   def index
-    render json: @pokemons
+
   end
 
   def show
-    @pokemon = {}
     @pokemon = @pokemons.find {|pokemon| pokemon[:name] == params[:name]}
-    if @pokemon != {}
-      @pokemon[:img] = "https://pokeres.bastionbot.org/images/pokemon/#{@pokemon[:url].split("/").last.to_i}.png"
-
-      # get json formatted information from Pokeapi
-      response = HTTParty.get(@pokemon[:url])
-      # parse json
-      json_results = JSON.parse(response.body, {symbolize_names: true})
-      
+    if @pokemon && @pokemon != {}
       if params[:level]
         @pokemon[:level] = params[:level]
-      else
-        @pokemon[:level] = json_results[:height]
       end
 
       if params[:type1]
         @pokemon[:type1] = params[:type1]
-      else
-        @pokemon[:type1] = json_results[:types][0][:type][:name]
       end
 
       if params[:type2]
         @pokemon[:type2] = params[:type2]
-      else
-        if json_results[:types].length == 1
-          @pokemon[:type2] = @pokemon[:type1]
-        else
-          @pokemon[:type2] = json_results[:types][1][:type][:name]
-        end
       end
     end
-
-    html_str = "<h1>#{@pokemon[:name]}</h1><img src=\"#{@pokemon[:img]}\" width=400px><br /><h3>level: #{@pokemon[:level]}</h3><h3>type1: #{@pokemon[:type1]}</h3><h3>type2: #{@pokemon[:type2]}</h3>"
-
-    render html: html_str.html_safe
   end
 
   private
     def prepare_data
+      @@pokemons = []
+
       # get json formatted information from Pokeapi 
-      response = HTTParty.get("https://pokeapi.co/api/v2/pokemon?limit=964")
+      # response = HTTParty.get("https://pokeapi.co/api/v2/pokemon?limit=964")
+      response = HTTParty.get("https://pokeapi.co/api/v2/pokemon?limit=50")
 
       # parse json
       json_results = JSON.parse(response.body, {symbolize_names: true})[:results]
       if json_results && json_results != []
-        @@pokemons = [*json_results]
-        pp @@pokemons
+        json_results.each do |pokemon_info|
+          pokemon = {}
+          pokemon[:name] = pokemon_info[:name]
+          pokemon[:img] = "https://pokeres.bastionbot.org/images/pokemon/#{pokemon_info[:url].split("/").last.to_i}.png"
+
+          # get json formatted information from Pokeapi
+          response_each_pokemon = HTTParty.get(pokemon_info[:url])
+          # parse json
+          json_results_each_pokemon = JSON.parse(response_each_pokemon.body, {symbolize_names: true})
+          pokemon[:level] = json_results_each_pokemon[:height]
+          pokemon[:type1] = json_results_each_pokemon[:types][0][:type][:name]
+          if json_results_each_pokemon[:types].length == 1
+            pokemon[:type2] = pokemon[:type1]
+          else
+            pokemon[:type2] = json_results_each_pokemon[:types][1][:type][:name]
+          end
+          @@pokemons.push(pokemon)
+        end
       end
+
+      # need to assigh class variable to instance variable because the class variable couldn't be used in Views
       @pokemons = @@pokemons
     end
 end

@@ -5,7 +5,7 @@ class CelebritiesController < ApplicationController
   @@celebrities = [
     { id: "1", name:"Lindsay Lohan", notability: "Parent Trap", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKWJy_Rk9xBJIiAUUmb1yrrhifvPttpBr0hwz9TiLspFSHwf_RH6uyZgTC&s"},
     { id: "2", name: "Adam Sandler", notability: "Big Daddy", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrqjgEZ7XyMGhDzRQqJDIM9qnZT2boyZHkc0rYAt1X_2aPleIK3gBfrH3n&s" },
-    { id: "3", name: "Micheal Jackson", notability: "Billee Jean", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMHC3L4ibxAXFAk5OHMxJmrDC0u9X8cM3MAYTyuwjEK9nEvN0M3hyFObRu&s" },
+    { id: "3", name: "Micheal Jackson", notability: "Billie Jean", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMHC3L4ibxAXFAk5OHMxJmrDC0u9X8cM3MAYTyuwjEK9nEvN0M3hyFObRu&s" },
   ]
   
   #Show all celebrities
