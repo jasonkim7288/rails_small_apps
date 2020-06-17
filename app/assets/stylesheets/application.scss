@@ -13,6 +13,34 @@
  *= require_tree .
  *= require_self
  */
-. {
- color: skyblue;
+
+.links-icon {
+  margin: 5px;
+  display: inline-block;
+}
+
+/* animation effect when hovering over icons */
+.links-icon-background {
+  width: 35px;
+  height: 35px;
+  font-size: 32px;
+  transition: all 0.5s;
+  text-decoration: none;
+  color: white;
+}
+
+.links-icon-background:hover {
+  color: #333;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #808080;
+}
+
+.footer-margin {
+  width: 100%;
+  height: 100px;
 }
