@@ -1,9 +1,10 @@
 <div class="container">
-  <div class="row row-cols-1 row-cols-md-4">
+  <h1 class='display-4 my-5 text-center'>Celebrities</h1>
+  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">
     <% @celebrities.each do |celeb| %>
-      <div class="col m-4">
-        <div class="card bg-light" style="min-width: 284px; max-width: 284">
-          <img src="<%= celeb[:url] %>" class="card-img-top " alt="celebrity image" style="width: 282px; height: 282px; object-fit: cover; ">
+      <div class="col-md-4 mb-4">
+        <div class="card bg-light h-100">
+          <%= image_tag celeb[:url], class: "card-img-top", alt: "Celebrity image", width: 300%>
           <div class="card-body">
             <h5 class="card-title"><%= celeb[:name] %></h5>
             <p class="card-text"><%= celeb[:notability] %></p>

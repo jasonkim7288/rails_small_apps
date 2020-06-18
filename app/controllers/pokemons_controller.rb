@@ -30,7 +30,7 @@ class PokemonsController < ApplicationController
 
       # get json formatted information from Pokeapi 
       # response = HTTParty.get("https://pokeapi.co/api/v2/pokemon?limit=964")
-      response = HTTParty.get("https://pokeapi.co/api/v2/pokemon?limit=20")
+      response = HTTParty.get("https://pokeapi.co/api/v2/pokemon?limit=22")
 
       # parse json
       json_results = JSON.parse(response.body, {symbolize_names: true})[:results]

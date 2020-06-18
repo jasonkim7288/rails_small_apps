@@ -7,11 +7,10 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href=<%= root_path %>>Celebrities <span class="sr-only">(current)</span></a>
-        
+        <%= link_to 'Celebrities', celebs_path, class: "nav-link #{"text-warning" if controller_name == "celebrities"}" %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Pokemons', pokemons_path, class: "nav-link" %>
+        <%= link_to 'Pokemons', pokemons_path, class: "nav-link #{"text-warning" if controller_name == "pokemons"}" %>
       </li>
     </ul>
 
