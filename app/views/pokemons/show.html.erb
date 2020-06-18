@@ -3,9 +3,9 @@
     <h1 class='display-4 my-5 text-center'><%= @pokemon[:name] %></h1>
     <div class="row row-cols-1">
       <div class="col-12 ">
-        <div class="row row-cols-1 row-cols-md-2 card bg-light h-100" >
+        <div class="row row-cols-1 row-cols-md-2 bg-light" >
           <div class="col-12 col-md-6">
-            <%= image_tag @pokemon[:img], class: "card-img-top p-5", alt: "pokemon image", width: 300%>
+            <%= image_tag @pokemon[:img], class: "img-fluid p-3", alt: "pokemon image"%>
           </div>
           <div class="col-12 col-md-6">
             <h2 class="m-4"><%="name : #{@pokemon[:name]}" %></h2>
@@ -16,6 +16,7 @@
             <% if @pokemon[:type2] %>
               <h2 class="m-4" style="color:<%= @pokemon[:color_type2] %>;"><%= "type 2 : #{@pokemon[:type2]}" %></h2>
             <% end %>
+            <%= link_to 'Edit', @pokemon, class: "btn btn-info m-4 col-5" %>
           </div>
         </div>    
       </div>

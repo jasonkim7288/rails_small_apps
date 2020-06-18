@@ -1,19 +1,21 @@
 <div class="container">
-  <h1 class='display-4 my-5 text-center'>@celebrity[:name]</h1>
-  <div class="row row-cols-1 row-cols-md-4">
-      <div class="col m-4">
-        <div class="card bg-light" style="min-width: 284px; max-width: 284">
-          <% if @celebrity %>
-            <img src="<%= @celebrity[:url] %>" class="card-img-top " alt="celebrity image" style="width: 282px; height: 282px; object-fit: cover; ">
-            <div class="card-body">
-              <h5 class="card-title"><%= @celebrity[:name] %></h5>
-              <p class="card-text"><%= @celebrity[:notability] %></p>
-              <%= link_to 'Remove', celeb_path(@celebrity[:id]), method: "delete", data: { confirm: "Really??" }, local: "true", class: "text-danger" %>
-            </div>
-          <% else %>
-            <h2 class="text-center">No result</h2>
-          <% end %>
+  <% if @celebrity && @celebrity != {} %>
+    <h1 class='display-4 my-5 text-center'><%= @celebrity[:name] %></h1>
+    <div class="row row-cols-1">
+      <div class="col-12 ">
+        <div class="row row-cols-1 row-cols-md-2 bg-light" >
+          <div class="col-12 col-md-3">
+            <%= image_tag @celebrity[:url], class: "img-fluid py-3", alt: "celebrity image"%>
+          </div>
+          <div class="col-12 col-md-9">
+            <h2 class="m-4"><%="name : #{@celebrity[:name]}" %></h2>
+            <p class="m-4"><%= "#{@wiki}" %></p>
+            <%= link_to 'Remove', celeb_path(@celebrity[:id]), method: "delete", data: { confirm: "Really??" }, local: "true", class: "btn btn-danger m-4 col-5" %>
+          </div>
         </div>    
       </div>
-  </div>
+    </div>
+  <% else %>
+    <h1 class='display-4 my-5 text-center'>No Result</h1>
+  <% end %>
 </div>

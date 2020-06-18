@@ -2,16 +2,15 @@
   <h1 class='display-4 my-5 text-center'>Celebrities</h1>
   <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">
     <% @celebrities.each do |celeb| %>
-      <div class="col-md-4 mb-4">
+      <%= link_to celeb_path(celeb[:id]), class: "col-md-4 mb-4 card-hover" do %>
         <div class="card bg-light h-100">
           <%= image_tag celeb[:url], class: "card-img-top", alt: "Celebrity image", width: 300%>
           <div class="card-body">
             <h5 class="card-title"><%= celeb[:name] %></h5>
             <p class="card-text"><%= celeb[:notability] %></p>
-            <%= link_to 'See more detail', celeb_path(celeb[:id]) %>
           </div>
         </div>    
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>
