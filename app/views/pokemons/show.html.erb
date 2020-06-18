@@ -1,17 +1,26 @@
 <div class="container">
-  <div class="row row-cols-1 row-cols-md-4">
-    <% if @pokemon && @pokemon != {} %>
-      <div class="col m-4">
-        <div class="card bg-light" style="min-width: 284px; max-width: 284">
-          <img src="<%= @pokemon[:img] %>" class="card-img-top " alt="pokemon image" style="width: 282px; height: 282px; object-fit: cover; ">
-          <div class="card-body">
-            <h5 class="card-title"><%= @pokemon[:name] %></h5>
-            <p class="card-text"><%= "level : #{@pokemon[:level]}" %></p>
-            <p class="card-text"><%= "type 1 : #{@pokemon[:type1]}" %></p>
-            <p class="card-text"><%= "type 2 : #{@pokemon[:type2]}" %></p>
+  <% if @pokemon && @pokemon != {} %>
+    <h1 class='display-4 my-5 text-center'><%= @pokemon[:name] %></h1>
+    <div class="row row-cols-1">
+      <div class="col-12 ">
+        <div class="row row-cols-1 row-cols-md-2 card bg-light h-100" >
+          <div class="col-12 col-md-6">
+            <%= image_tag @pokemon[:img], class: "card-img-top p-5", alt: "pokemon image", width: 300%>
+          </div>
+          <div class="col-12 col-md-6">
+            <h2 class="m-4"><%="name : #{@pokemon[:name]}" %></h2>
+            <h2 class="m-4"><%= "height : #{@pokemon[:height]}m" %></h2>
+            <h2 class="m-4"><%= "weight : #{@pokemon[:weight]}kg" %></h2>
+            <%# match the color %>
+            <h2 class="m-4" style="color:<%= @pokemon[:color_type1] %>;"><%= "type 1 : #{@pokemon[:type1]}" %></h2>
+            <% if @pokemon[:type2] %>
+              <h2 class="m-4" style="color:<%= @pokemon[:color_type2] %>;"><%= "type 2 : #{@pokemon[:type2]}" %></h2>
+            <% end %>
           </div>
         </div>    
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% else %>
+    <h1 class='display-4 my-5 text-center'>No Result</h1>
+  <% end %>
 </div>

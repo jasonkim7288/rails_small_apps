@@ -14,11 +14,20 @@
       </li>
     </ul>
 
-    <% if controller_name == "celebrities" %>
+    <% case controller_name %>
+    <% when "celebrities" %>
       <form class="form-inline my-2 my-lg-0" action=<%= celebrities_path %> method="post" local="true">
         <input class="form-control mr-sm-2" type="search" name="name"placeholder="Add" aria-label="Add">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add</button>
       </form>
+    <% when "pokemons" %>
+      <%= form_with url: pokemon_search_path, method: :get, class: "form-inline my-2 my-lg-0", local: true do |f| %>
+        <div id= "search-data" class="form-search search-data" data-names="<%= @names.to_json %>">
+          <%= text_field_tag :search_text, nil, autocomplete: :off, class: "form-control search-input my-1 my-md-0", style: "min-width: 250px; max-width: 250px", placeholder: "Search by Pokemon name..." %>
+          <%= submit_tag "Search", class: "btn btn-primary button-home" %>
+        </div>
+      <% end %>
     <% end %>
+
   </div>
 </nav>

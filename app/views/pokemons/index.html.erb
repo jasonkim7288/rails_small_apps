@@ -2,20 +2,21 @@
   <h1 class='display-4 my-5 text-center'>Pokemons</h1>
   <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 ">
     <% @pokemons.each do |pokemon| %>
-      <div class="col-md-4 mb-4">
-        <div class="card bg-light h-100" >
-          <%= image_tag pokemon[:img], class: "card-img-top p-1", alt: "pokemon image", width: 300%>
-          <div class="card-body">
-            <h5 class="card-title"><%= pokemon[:name] %></h5>
-            <p class="card-text"><%= "level : #{pokemon[:level]}" %></p>
-            <%# match the color %>
-            <p class="card-text" style="color:<%= pokemon[:color_type1] %>;"><%= "type 1 : #{pokemon[:type1]}" %></p>
-            <% if pokemon[:type2] %>
-              <p class="card-text" style="color:<%= pokemon[:color_type2] %>;"><%= "type 2 : #{pokemon[:type2]}" %></p>
-            <% end %>
-          </div>
-        </div>    
-      </div>
+      <%= link_to pokemon_path(pokemon[:name]), class: "col-md-4 mb-4 card-hover" do %>
+          <div class="card bg-light h-100" >
+            <%= image_tag pokemon[:img], class: "card-img-top p-3", alt: "pokemon image", width: 300%>
+            <div class="card-body">
+              <h5 class="card-title"><%= pokemon[:name] %></h5>
+              <p class="card-text"><%= "height : #{pokemon[:height]}m" %></p>
+              <%# match the color %>
+              <p class="card-text" style="color:<%= pokemon[:color_type1] %>;"><%= "type 1 : #{pokemon[:type1]}" %></p>
+              <% if pokemon[:type2] %>
+                <p class="card-text" style="color:<%= pokemon[:color_type2] %>;"><%= "type 2 : #{pokemon[:type2]}" %></p>
+              <% end %>
+            </div>
+          </div>    
+
+      <% end %>
     <% end %>
   </div>
 </div>
