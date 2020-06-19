@@ -4,9 +4,9 @@ class CelebritiesController < ApplicationController
   before_action :find_by_id, only: [:show, :destroy]
   before_action :find_by_name, only: [:search]
   @@celebrities = [
-    { id: "2", name: "Adam Sandler", notability: "Big Daddy", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrqjgEZ7XyMGhDzRQqJDIM9qnZT2boyZHkc0rYAt1X_2aPleIK3gBfrH3n&s" },
-    { id: "1", name:"Lindsay Lohan", notability: "Parent Trap", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKWJy_Rk9xBJIiAUUmb1yrrhifvPttpBr0hwz9TiLspFSHwf_RH6uyZgTC&s"},
-    { id: "3", name: "Micheal Jackson", notability: "Billie Jean", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMHC3L4ibxAXFAk5OHMxJmrDC0u9X8cM3MAYTyuwjEK9nEvN0M3hyFObRu&s" },
+    { id: UUID.new.generate, name: "Adam Sandler", notability: "Big Daddy", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrqjgEZ7XyMGhDzRQqJDIM9qnZT2boyZHkc0rYAt1X_2aPleIK3gBfrH3n&s" },
+    { id: UUID.new.generate, name:"Lindsay Lohan", notability: "Parent Trap", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKWJy_Rk9xBJIiAUUmb1yrrhifvPttpBr0hwz9TiLspFSHwf_RH6uyZgTC&s"},
+    { id: UUID.new.generate, name: "Micheal Jackson", notability: "Billie Jean", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMHC3L4ibxAXFAk5OHMxJmrDC0u9X8cM3MAYTyuwjEK9nEvN0M3hyFObRu&s" },
   ]
   @@names = []
   
@@ -51,7 +51,9 @@ class CelebritiesController < ApplicationController
     uuid = UUID.new.generate
     
     # get json formatted information from google image search 
-    response = HTTParty.get("https://www.googleapis.com/customsearch/v1?key=#{Rails.application.credentials.dig(:google, :api_key)}&q=#{params[:name].gsub(" ", "%20")}&searchType=image")
+    req_url = "https://www.googleapis.com/customsearch/v1?key=#{Rails.application.credentials.dig(:google, :api_key)}&q=#{params[:name].gsub(" ", "%20")}&searchType=image"
+    response = HTTParty.get(req_url)
+    puts req_url
 
     # parse json
     json_results = JSON.parse(response.body, {symbolize_names: true})
@@ -72,7 +74,7 @@ class CelebritiesController < ApplicationController
 
     @@celebrities.push({id: uuid, name: params[:name], notability: notability, url: url})
 
-    redirect_to root_path
+    redirect_to celebrities_path
   end
   
   #Update a celebrity
@@ -82,7 +84,7 @@ class CelebritiesController < ApplicationController
   #Remove a celebrity
   def destroy
     @celebrities.delete(@celebrity)
-    redirect_to root_path
+    redirect_to celebrities_path
   end
 
   private
