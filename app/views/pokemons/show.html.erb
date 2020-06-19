@@ -16,7 +16,8 @@
             <% if @pokemon[:type2] %>
               <h2 class="m-4" style="color:<%= @pokemon[:color_type2] %>;"><%= "type 2 : #{@pokemon[:type2]}" %></h2>
             <% end %>
-            <%= link_to 'Edit', @pokemon, class: "btn btn-info m-4 col-5" %>
+            <%# link_to 'Edit', @pokemon, class: "btn btn-info m-4 col-5" %>
+            <%= link_to 'Edit', pokemons_path, class: "btn btn-info m-4 col-5" %>
           </div>
         </div>    
       </div>
