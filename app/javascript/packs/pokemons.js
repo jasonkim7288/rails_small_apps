@@ -1,3 +1,6 @@
+import 'js-autocomplete/auto-complete.css';
+import autocomplete from 'js-autocomplete';
+
 $(document).on('turbolinks:load', function() {
   // This is for pokemon search
   const names_pokemon = JSON.parse(document.getElementById('search-data-pokemon').dataset.names)

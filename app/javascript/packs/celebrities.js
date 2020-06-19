@@ -1,3 +1,6 @@
+import 'js-autocomplete/auto-complete.css';
+import autocomplete from 'js-autocomplete';
+
 $(document).on('turbolinks:load', function() {
   // This is for celebrity search
   const names_celebrity = JSON.parse(document.getElementById('search-data-celebrity').dataset.names)
