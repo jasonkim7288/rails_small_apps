@@ -5,7 +5,7 @@ class CelebritiesController < ApplicationController
   before_action :find_by_name, only: [:search]
   @@celebrities = [
     { id: UUID.new.generate, name: "Adam Sandler", notability: "Big Daddy", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrqjgEZ7XyMGhDzRQqJDIM9qnZT2boyZHkc0rYAt1X_2aPleIK3gBfrH3n&s" },
-    { id: UUID.new.generate, name:"Lindsay Lohan", notability: "Parent Trap", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKWJy_Rk9xBJIiAUUmb1yrrhifvPttpBr0hwz9TiLspFSHwf_RH6uyZgTC&s"},
+    { id: UUID.new.generate, name:"Robert Downey Jr.", notability: "Iron Man", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy28AJd9QvgPxyQ3_vFc65WjksTwieYfcgg1aW9wFultMXernRs4Mo6GXS&s"},
     { id: UUID.new.generate, name: "Micheal Jackson", notability: "Billie Jean", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMHC3L4ibxAXFAk5OHMxJmrDC0u9X8cM3MAYTyuwjEK9nEvN0M3hyFObRu&s" },
   ]
   @@names = []
@@ -23,7 +23,6 @@ class CelebritiesController < ApplicationController
       # get json formatted information from Wikipedia 
       req_url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=#{searchable_name}"
       response = HTTParty.get(req_url)
-      p req_url
 
       # parse json
       json_result = JSON.parse(response.body, { symbolize_names: true})
@@ -92,7 +91,7 @@ class CelebritiesController < ApplicationController
       @celebrities = @@celebrities
       if @celebrities != []
         @names = @celebrities.map {|celebrity| celebrity[:name]}
-        puts @names
+        puts @celebrities
       end
     end
 
