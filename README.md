@@ -1,24 +1,21 @@
-# README
+# Small apps with Rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Link
+### Github link : https://github.com/jasonkim7288/rails_small_apps
+### Deploy link : https://smallapps.herokuapp.com/
 
-Things you may want to cover:
+## Description
+Small apps are a collection of apps using different kinds of REST APIs, such as Pokemons, Wikipedia, Google Image Search APIs.
 
-* Ruby version
+<!-- ![Image of OAuth](docs/OAuth.png) -->
 
-* System dependencies
+## ERD
+![Image of ERD](docs/[ERD]garage_sale.png)
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Tech stack
+- Rails : Front end and back end source code
+- Heroku : deploy the code
+- Bootstrap : make pages look prettier
+- Httparty : a gem for REST API request 
+- uuid : a gem for making unique ID for each element
