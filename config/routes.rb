@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   post "/celebrities", to: "celebrities#create"
   put "/celebrities/:id", to: "celebrities#update"
   delete "/celebrities/:id", to: "celebrities#destroy"
-  root "celebrities#index"
 
   get "/pokemons/search", to: "pokemons#search", as: "pokemon_search"
   get "/pokemons/:name", to: "pokemons#show", as: "pokemon"
@@ -14,4 +13,6 @@ Rails.application.routes.draw do
   get "/pokemons/:id/edit", to: "pokemons#edit", as: "edit_pokemon"
   
   get "/pokemons", to: "pokemons#index", as: "pokemons"
+
+  root "pokemons#index"
 end
