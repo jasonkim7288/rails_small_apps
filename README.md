@@ -9,8 +9,10 @@ Small apps are a collection of apps using different kinds of REST APIs, such as 
 
 <!-- ![Image of OAuth](docs/OAuth.png) -->
 
-## ERD
-![Image of ERD](docs/[ERD]garage_sale.png)
+## Screenshot
+![Image of pokemon app](docs/pokemon_app.png)
+
+![Image of celebrity app](docs/celebrity_app.png)
 
 
 ## Tech stack
