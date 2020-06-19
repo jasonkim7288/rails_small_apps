@@ -21,11 +21,13 @@ class CelebritiesController < ApplicationController
       searchable_name = CGI.escape(@celebrity[:name].split(" ").map {|str| str.capitalize}.join(" "))
 
       # get json formatted information from Wikipedia 
-      response = HTTParty.get("https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=#{searchable_name}")
+      req_url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=#{searchable_name}"
+      response = HTTParty.get(req_url)
+      p req_url
 
       # parse json
       json_result = JSON.parse(response.body, { symbolize_names: true})
-      if json_result && json_result[:query] && json_result[:query][:pages] && !json_result[:query][:pages].has_key?("-1")
+      if json_result && json_result[:query] && json_result[:query][:pages] && !json_result[:query][:pages].has_key?(:"-1")
         @wiki = json_result[:query][:pages].values[0][:extract]
       else
         @wiki = @celebrity[:notability]
@@ -38,7 +40,6 @@ class CelebritiesController < ApplicationController
   # Get the search text and redirect to Show
   def search
     if @celebrity
-      p @celebrity
       redirect_to celebrity_path(@celebrity[:id])
     else
       redirect_to celebrities_url, alert: 'No result'
@@ -60,7 +61,7 @@ class CelebritiesController < ApplicationController
     elsif json_results[:searchInformation][:totalResults].to_i > 0
       notability = json_results[:items][0][:snippet]
     else
-      notability = "Known"
+      notability = "Unknown"
     end
     
 
