@@ -32,7 +32,11 @@ class PokemonsController < ApplicationController
   end
 
   def search
-    redirect_to pokemon_path(params[:search_text])
+    if params[:search_text_pokemon]
+      redirect_to pokemon_path(params[:search_text_pokemon])
+    else
+      redirect_to pokemons_url, alert: 'No result'
+    end
   end
 
   private

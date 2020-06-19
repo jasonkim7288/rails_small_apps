@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get "/celebrities", to: "celebrities#index", as: "celebs"
-  get "/celebrities/:id", to: "celebrities#show", as: "celeb"
+  get "/celebrities/search", to: "celebrities#search", as: "celebrity_search"
+  get "/celebrities", to: "celebrities#index", as: "celebrities"
+  get "/celebrities/:id", to: "celebrities#show", as: "celebrity"
   post "/celebrities", to: "celebrities#create"
   put "/celebrities/:id", to: "celebrities#update"
   delete "/celebrities/:id", to: "celebrities#destroy"

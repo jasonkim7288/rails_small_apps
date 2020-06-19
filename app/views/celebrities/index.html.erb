@@ -1,8 +1,14 @@
 <div class="container">
-  <h1 class='display-4 my-5 text-center'>Celebrities</h1>
+  <h1 class='display-4 mt-5 text-center'>Celebrities</h1>
+
+  <form class="form-inline my-4" action=<%= celebrities_path %> method="post" local="true">
+    <input class="form-control mr-sm-2" type="search" name="name"placeholder="Add Celebrity name" aria-label="Add">
+    <button class="btn btn-success my-2 my-sm-0" type="submit">Add</button>
+  </form>
+
   <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">
     <% @celebrities.each do |celeb| %>
-      <%= link_to celeb_path(celeb[:id]), class: "col-md-4 mb-4 card-hover" do %>
+      <%= link_to celebrity_path(celeb[:id]), class: "col-md-4 mb-4 card-hover" do %>
         <div class="card bg-light h-100">
           <%= image_tag celeb[:url], class: "card-img-top", alt: "Celebrity image", width: 300%>
           <div class="card-body">

@@ -10,7 +10,7 @@
           <div class="col-12 col-md-9">
             <h2 class="m-4"><%="name : #{@celebrity[:name]}" %></h2>
             <p class="m-4"><%= "#{@wiki}" %></p>
-            <%= link_to 'Remove', celeb_path(@celebrity[:id]), method: "delete", data: { confirm: "Really??" }, local: "true", class: "btn btn-danger m-4 col-5" %>
+            <%= link_to 'Remove', celebrity_path(@celebrity[:id]), method: "delete", data: { confirm: "Really??" }, local: "true", class: "btn btn-danger m-4 col-5" %>
           </div>
         </div>    
       </div>
