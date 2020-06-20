@@ -20,4 +20,14 @@ $(document).on('turbolinks:load', function() {
       },
     });
   }
+
+  window.addEventListener('resize', () => {
+    console.log('window.innerWidth:', window.innerWidth)
+    if (window.innerWidth < 576) {
+      this.getElementById('pokemon-page').setAttribute("inner_window", 1);
+    }
+    else {
+      this.getElementById('pokemon-page').setAttribute("inner_window", 3);
+    }
+  });
 });

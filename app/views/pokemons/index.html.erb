@@ -1,13 +1,13 @@
 <div class="container">
   <h1 class='display-4 my-5 text-center'>Pokemons</h1>
   <div class="d-flex justify-content-center">
-    <%= will_paginate @pokemons, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+    <%= will_paginate @pokemons, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, inner_window: 4, id: "pokemon-page" %>
   </div>
   <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 ">
     <% @pokemons.each do |pokemon| %>
       <%= link_to pokemon, class: "col-md-4 mb-4 card-hover" do %>
           <div class="card bg-light h-100" >
-            <%= image_tag pokemon.img_url, class: "card-img-top p-3", alt: "pokemon image", width: 300%>
+            <%= image_tag pokemon.img_url, class: "card-img-top p-3", alt: "pokemon image", width: 300, onerror: "this.onerror=null;this.src='https://images.unsplash.com/photo-1542779283-429940ce8336?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80';" %>
             <div class="card-body">
               <h5 class="card-title"><%= pokemon.name %></h5>
               <p class="card-text"><%= "height : #{pokemon.height}m" %></p>

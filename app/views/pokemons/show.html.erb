@@ -5,7 +5,7 @@
       <div class="col-12 ">
         <div class="row row-cols-1 row-cols-md-2 bg-light" >
           <div class="col-12 col-md-6">
-            <%= image_tag @pokemon[:img_url], class: "img-fluid p-3", alt: "pokemon image"%>
+            <%= image_tag @pokemon[:img_url], class: "img-fluid p-3", alt: "pokemon image", onerror: "this.onerror=null;this.src='https://images.unsplash.com/photo-1542779283-429940ce8336?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80';"%>
           </div>
           <div class="col-12 col-md-6">
             <h2 class="m-4"><%="name : #{@pokemon[:name]}" %></h2>
