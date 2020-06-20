@@ -3,7 +3,6 @@ class PokemonsController < ApplicationController
     get_names(false)
   end
 
-
   @@names = []
 
   def initdb
@@ -21,6 +20,9 @@ class PokemonsController < ApplicationController
 
       # iterate through each pokemon's related url and get the info
       json_results.each do |pokemon_info|
+        # if there is already same pokemon in the Model, don't add it
+        next if Pokemon.find_by_name(pokemon_indo[:name])
+
         pokemon = Pokemon.new
 
         pokemon.rest_id = pokemon_info[:url].split("/").last.to_i

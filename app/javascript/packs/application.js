@@ -18,4 +18,10 @@ import 'bootstrap/dist/js/bootstrap'
 import 'bootstrap/dist/css/bootstrap'
 
 import 'js-autocomplete/auto-complete.css';
-import autocomplete from 'js-autocomplete';
+
+$(document).on('turbolinks:load', function() {
+  window.addEventListener('resize', () => {
+    this.getElementById('nav-margin').setAttribute("style", `height:${this.getElementById('nav-id').offsetHeight}px`);
+    this.getElementById('footer-margin').setAttribute("style", `height:${this.getElementById('footer-id').offsetHeight}px`);
+  });
+});
