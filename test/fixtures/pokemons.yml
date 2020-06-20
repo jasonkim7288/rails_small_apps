@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rest_id: MyString
+  name: MyString
+  img: MyString
+  height: MyString
+  weight: MyString
+  type1: MyString
+  type2: MyString
+  color_type1: MyString
+  color_type2: MyString
+
+two:
+  rest_id: MyString
+  name: MyString
+  img: MyString
+  height: MyString
+  weight: MyString
+  type1: MyString
+  type2: MyString
+  color_type1: MyString
+  color_type2: MyString

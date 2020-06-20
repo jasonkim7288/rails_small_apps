@@ -1,17 +1,65 @@
 class PokemonsController < ApplicationController
-  before_action :prepare_data, only: [:index]
-  before_action :get_list
+  before_action except: :init_db do
+    get_names(false)
+  end
 
-  @@types = { fire: "red", water: "blue", grass: "green", electric: "yellow", flying: "skyblue", bug: "darkgreen", poison: "purple" }
-  @@pokemons = []
+
   @@names = []
 
-  def index
+  def initdb
+    begin
+      # get the current total number of pokemons from Pokeapi
+      response = HTTParty.get("https://pokeapi.co/api/v2/pokemon?limit=1")
+      json_results = JSON.parse(response.body, {symbolize_names: true})
 
+      # get the all pokemons' name and related url
+      req_url = "https://pokeapi.co/api/v2/pokemon?limit=#{json_results[:count]}"
+      response = HTTParty.get(req_url)
+      json_results = JSON.parse(response.body, {symbolize_names: true})[:results]
+
+      Pokemon.delete_all
+
+      # iterate through each pokemon's related url and get the info
+      json_results.each do |pokemon_info|
+        pokemon = Pokemon.new
+
+        pokemon.rest_id = pokemon_info[:url].split("/").last.to_i
+        pokemon.name = pokemon_info[:name]
+        pokemon.img_url = "https://pokeres.bastionbot.org/images/pokemon/#{pokemon.rest_id}.png"
+
+        # get detailed information
+        response_each_pokemon = HTTParty.get(pokemon_info[:url])
+        json_results_each_pokemon = JSON.parse(response_each_pokemon.body, {symbolize_names: true})
+
+        pokemon.height = (json_results_each_pokemon[:height].to_i / 10.0).round(1).to_s
+        pokemon.weight = (json_results_each_pokemon[:weight].to_i / 10.0).round(1).to_s
+        pokemon.type1 = json_results_each_pokemon[:types][0][:type][:name]
+
+        if json_results_each_pokemon[:types].length > 1
+          pokemon.type2 = json_results_each_pokemon[:types][1][:type][:name]
+        end
+
+        # save one pokemon into DB
+        pokemon.save
+      end
+
+      # update names list for auto-complete
+      get_names(true)
+
+      # Redirect to index action
+      redirect_to pokemons_url, notice: 'Pokemons were successfully created.'
+    rescue
+      # if there is an error with Rest api, return error
+      # redirect_to pokemons_url, alert: 'Loading DB failed'
+    end
+  end
+
+  def index
+    @pokemons = Pokemon.paginate(page: params[:page], per_page: 12)
   end
 
   def show
-    @pokemon = @pokemons.find {|pokemon| pokemon[:name] == params[:name]}
+    @pokemon = Pokemon.find(params[:id])
     if @pokemon && @pokemon != {}
       if params[:height]
         @pokemon[:height] = params[:height]
@@ -33,61 +81,23 @@ class PokemonsController < ApplicationController
 
   def search
     if params[:search_text_pokemon]
-      redirect_to pokemon_path(params[:search_text_pokemon])
+      redirect_to pokemon_path(Pokemon.find_by_name(params[:search_text_pokemon]))
     else
       redirect_to pokemons_url, alert: 'No result'
     end
   end
 
   private
-    def prepare_data
-      # If the data is already loaded, don't load again
-      return if @@pokemons && @@pokemons != []
-
-      # get json formatted information from Pokeapi 
-      # response = HTTParty.get("https://pokeapi.co/api/v2/pokemon?limit=964")
-      response = HTTParty.get("https://pokeapi.co/api/v2/pokemon?limit=22")
-
-      # parse json
-      json_results = JSON.parse(response.body, {symbolize_names: true})[:results]
-      if json_results && json_results != []
-        json_results.each do |pokemon_info|
-          pokemon = {}
-          pokemon[:id] = pokemon_info[:url].split("/").last.to_i
-          pokemon[:name] = pokemon_info[:name]
-          pokemon[:img] = "https://pokeres.bastionbot.org/images/pokemon/#{pokemon[:id]}.png"
-
-          # get json formatted information from Pokeapi
-          response_each_pokemon = HTTParty.get(pokemon_info[:url])
-          # parse json
-          json_results_each_pokemon = JSON.parse(response_each_pokemon.body, {symbolize_names: true})
-
-          pokemon[:height] = (json_results_each_pokemon[:height].to_i / 10.0).round(1)
-          pokemon[:weight] = (json_results_each_pokemon[:weight].to_i / 10.0).round(1)
-          pokemon[:type1] = json_results_each_pokemon[:types][0][:type][:name]
-          pokemon[:color_type1] = get_color(pokemon[:type1])
-         
-          if json_results_each_pokemon[:types].length > 1
-            pokemon[:type2] = json_results_each_pokemon[:types][1][:type][:name]
-            pokemon[:color_type2] = get_color(pokemon[:type2])
-          end
-
-          @@pokemons.push(pokemon)
-          @@names.push(pokemon_info[:name])
-        end
-      end
-    end
-
     # return the color matched, and return "black" if not matched
     def get_color(type)
       return @@types.has_key?(type.to_sym) ? @@types[type.to_sym] : "black"
     end
 
-    # whenever action is excuted, @pokemons and @names should be re-assigned
-    def get_list
-      # need to assigh class variable to instance variable because the class variable couldn't be used in Views
-      @pokemons = @@pokemons
-      # @names is for autocomplete
-      @names = @@names.sort!
+    # return names list for auto-complete
+    def get_names(force)
+      if force || @@names == []
+        @@names = Pokemon.all.pluck(:name)
+      end
+      @names = @@names
     end
 end
