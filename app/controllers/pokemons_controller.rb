@@ -69,12 +69,10 @@ class PokemonsController < ApplicationController
 
       if params[:type1]
         @pokemon[:type1] = params[:type1]
-        @pokemon[:color_type1] = get_color(@pokemon[:type1])
       end
 
       if params[:type2]
         @pokemon[:type2] = params[:type2]
-        @pokemon[:color_type2] = get_color(@pokemon[:type2])
       end
     else
       redirect_to pokemons_url, alert: 'No result'
@@ -90,11 +88,6 @@ class PokemonsController < ApplicationController
   end
 
   private
-    # return the color matched, and return "black" if not matched
-    def get_color(type)
-      return @@types.has_key?(type.to_sym) ? @@types[type.to_sym] : "black"
-    end
-
     # return names list for auto-complete
     def get_names(force)
       if force || @@names == []

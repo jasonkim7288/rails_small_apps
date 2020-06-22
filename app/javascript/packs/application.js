@@ -20,6 +20,11 @@ import 'bootstrap/dist/css/bootstrap'
 import 'js-autocomplete/auto-complete.css';
 
 $(document).on('turbolinks:load', function() {
+  window.addEventListener('load', () => {
+    this.getElementById('nav-margin').setAttribute("style", `height:${this.getElementById('nav-id').offsetHeight}px`);
+    this.getElementById('footer-margin').setAttribute("style", `height:${this.getElementById('footer-id').offsetHeight}px`);
+  });
+
   window.addEventListener('resize', () => {
     this.getElementById('nav-margin').setAttribute("style", `height:${this.getElementById('nav-id').offsetHeight}px`);
     this.getElementById('footer-margin').setAttribute("style", `height:${this.getElementById('footer-id').offsetHeight}px`);
